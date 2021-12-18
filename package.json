@@ -1,0 +1,23 @@
+{
+  "name": "rest-api-nodejs-expressjs",
+  "version": "1.0.0",
+  "description": "This is a REST API built with NodeJS and ExpressJS.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/l33th/REST-API-NodeJS-ExpressJS.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/l33th/REST-API-NodeJS-ExpressJS/issues"
+  },
+  "homepage": "https://github.com/l33th/REST-API-NodeJS-ExpressJS#readme",
+  "dependencies": {
+    "express": "^4.17.2"
+  }
+}
