@@ -72,13 +72,16 @@ app.put('/api/cryptocurrencies/:id', (req, res) => {
 });
 
 app.delete('/api/cryptocurrencies/:id', (req, res) => {
-  // Look up the course
+  // Look up the crypto
   // Not existing, return 404
   const crypto = cryptocurrencies.find(c => c.id === parseInt(req.params.id));
   if (!crypto)
     res.status(404).send('The crypto with the given ID was not found.');
 
   // Delete
+  const index = cryptocurrencies.indexOf(crypto)
+  cryptocurrencies.splice(index, 1);
+  // Return the same crypto
 })
 
 const validateCrypto = crypto => {
