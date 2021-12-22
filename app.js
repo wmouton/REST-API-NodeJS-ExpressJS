@@ -36,15 +36,11 @@ app.get('/api/cryptocurrencies', (req, res) => {
 // POST request for all the cryptocurrencies testing endpoints to get cryptocurrencies
 app.post('/api/cryptocurrencies', (req, res) => {
   // Input Validation
-  const schema = {
-    name: Joi.string().min(3).required(),
-  };
-  const result = Joi.validate(req.body, schema);
-  if (result.error) {
-    res.status(400).send(result.error.details[0].message);
+  if (error) {
+    res.status(400).send(error.details[0].message);
     return;
   }
-
+  
   const crypto = {
     id: cryptocurrencies.length + 1,
     name: req.body.name,
