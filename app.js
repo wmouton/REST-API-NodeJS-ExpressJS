@@ -11,14 +11,18 @@ app.use(express.json());
 const cryptocurrencies = [
   {
     id: 1,
-    name: 'Bitcoin',
+    name: 'Ablecoin',
   },
   {
     id: 2,
-    name: 'Ethereum',
+    name: 'Bitcoin',
   },
   {
     id: 3,
+    name: 'Ethereum',
+  },
+  {
+    id: 4,
     name: 'L33thcoin',
   },
 ];
@@ -71,7 +75,7 @@ app.put('/api/cryptocurrencies/:id', (req, res) => {
 
 const validateCrypto = crypto => {
   const schema = {
-    name: Joi.string().min(3).required(),
+    name: Joi.string().min(4).required(),
   };
   const result = Joi.validate(crypto, schema);
 
