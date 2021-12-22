@@ -1,6 +1,7 @@
 // imports
 const Joi = require('joi');
 const express = require('express');
+const { validate } = require('joi/lib/types/lazy');
 const app = express();
 
 // json middleware
@@ -54,14 +55,32 @@ app.post('/api/cryptocurrencies', (req, res) => {
 
 app.put('/api/cryptocurrencies/:id', (req, res) => {
   // Look up the cryptocurrencies
+  const crypto = cryptocurrencies.find(c => c.id === parseInt(req.params.id));
+  if (!crypto)
+    res.status(404).send('The crypto with the given ID was not found.');
+  // res.send(crypto);
   // If it not exist, return 404
 
-  // Validate
-  // If invalid, return 400 - Bad Request
-
+  // const result = validateCrypto(req.body);
+  const { error } = validateCrypto(req.body); // result.error
+  if (error) {
+    res.status(400).send(error.details[0].message);
+    return;
+  }
   // Update crypto
-  // Return the updateed crypto
-})
+  crypto.name = req.body.name;
+  // Return the updated crypto
+  res.send(crypto);
+});
+
+const validateCrypto = crypto => {
+  const schema = {
+    name: Joi.string().min(3).required(),
+  };
+  const result = Joi.validate(crypto, schema);
+
+  return Joi.validate(course, schema);
+};
 
 // GET request to get cryptocurrencies by id
 app.get('/api/cryptocurrencies/:id', (req, res) => {
