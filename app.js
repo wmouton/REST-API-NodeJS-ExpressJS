@@ -58,8 +58,6 @@ app.put('/api/cryptocurrencies/:id', (req, res) => {
   const crypto = cryptocurrencies.find(c => c.id === parseInt(req.params.id));
   if (!crypto)
     res.status(404).send('The crypto with the given ID was not found.');
-  // res.send(crypto);
-  // If it not exist, return 404
 
   // const result = validateCrypto(req.body);
   const { error } = validateCrypto(req.body); // result.error
@@ -72,6 +70,16 @@ app.put('/api/cryptocurrencies/:id', (req, res) => {
   // Return the updated crypto
   res.send(crypto);
 });
+
+app.delete('/api/cryptocurrencies/:id', (req, res) => {
+  // Look up the course
+  // Not existing, return 404
+  const crypto = cryptocurrencies.find(c => c.id === parseInt(req.params.id));
+  if (!crypto)
+    res.status(404).send('The crypto with the given ID was not found.');
+
+  // Delete
+})
 
 const validateCrypto = crypto => {
   const schema = {
