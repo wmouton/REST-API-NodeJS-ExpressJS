@@ -40,7 +40,7 @@ app.post('/api/cryptocurrencies', (req, res) => {
     res.status(400).send(error.details[0].message);
     return;
   }
-  
+
   const crypto = {
     id: cryptocurrencies.length + 1,
     name: req.body.name,
@@ -75,7 +75,7 @@ const validateCrypto = crypto => {
   };
   const result = Joi.validate(crypto, schema);
 
-  return Joi.validate(course, schema);
+  return Joi.validate(crypto, schema);
 };
 
 // GET request to get cryptocurrencies by id
