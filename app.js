@@ -40,10 +40,8 @@ app.get('/api/cryptocurrencies', (req, res) => {
 // POST request for all the cryptocurrencies testing endpoints to get cryptocurrencies
 app.post('/api/cryptocurrencies', (req, res) => {
   // Input Validation
-  if (error) {
-    res.status(400).send(error.details[0].message);
-    return;
-  }
+  const { error } = validateCrypto(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
 
   const crypto = {
     id: cryptocurrencies.length + 1,
@@ -57,14 +55,11 @@ app.put('/api/cryptocurrencies/:id', (req, res) => {
   // Look up the cryptocurrencies
   const crypto = cryptocurrencies.find(c => c.id === parseInt(req.params.id));
   if (!crypto)
-    res.status(404).send('The crypto with the given ID was not found.');
+    return res.status(404).send('The crypto with the given ID was not found.');
 
   // const result = validateCrypto(req.body);
   const { error } = validateCrypto(req.body); // result.error
-  if (error) {
-    res.status(400).send(error.details[0].message);
-    return;
-  }
+  if (error) return res.status(400).send(error.details[0].message);
   // Update crypto
   crypto.name = req.body.name;
   // Return the updated crypto
@@ -76,13 +71,14 @@ app.delete('/api/cryptocurrencies/:id', (req, res) => {
   // Not existing, return 404
   const crypto = cryptocurrencies.find(c => c.id === parseInt(req.params.id));
   if (!crypto)
-    res.status(404).send('The crypto with the given ID was not found.');
+    return res.status(404).send('The crypto with the given ID was not found.');
 
   // Delete
-  const index = cryptocurrencies.indexOf(crypto)
+  const index = cryptocurrencies.indexOf(crypto);
   cryptocurrencies.splice(index, 1);
   // Return the same crypto
-})
+  res.send(crypto);
+});
 
 const validateCrypto = crypto => {
   const schema = {
@@ -97,7 +93,7 @@ const validateCrypto = crypto => {
 app.get('/api/cryptocurrencies/:id', (req, res) => {
   const crypto = cryptocurrencies.find(c => c.id === parseInt(req.params.id));
   if (!crypto)
-    res.status(404).send('The crypto with the given ID was not found.');
+    return res.status(404).send('The crypto with the given ID was not found.');
   res.send(crypto);
 });
 
