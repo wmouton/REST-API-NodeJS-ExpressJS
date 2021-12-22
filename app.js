@@ -52,6 +52,17 @@ app.post('/api/cryptocurrencies', (req, res) => {
   res.send(crypto);
 });
 
+app.put('/api/cryptocurrencies/:id', (req, res) => {
+  // Look up the cryptocurrencies
+  // If it not exist, return 404
+
+  // Validate
+  // If invalid, return 400 - Bad Request
+
+  // Update crypto
+  // Return the updateed crypto
+})
+
 // GET request to get cryptocurrencies by id
 app.get('/api/cryptocurrencies/:id', (req, res) => {
   const crypto = cryptocurrencies.find(c => c.id === parseInt(req.params.id));
