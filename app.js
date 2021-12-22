@@ -1,4 +1,5 @@
 // imports
+const Joi = require('joi');
 const express = require('express');
 const app = express();
 
@@ -34,9 +35,18 @@ app.get('/api/cryptocurrencies', (req, res) => {
 // POST request for all the cryptocurrencies testing endpoints to get cryptocurrencies
 app.post('/api/cryptocurrencies', (req, res) => {
   // Input Validation
+  const schema = {
+    name: Joi.string().min(3).required(),
+  };
+
+  const result = Joi.validate(req.body, schema);
+  console.log(result);
+  
   if (!req.body.name || req.body.length < 3) {
     // 400 Bad Request
-    res.status(400).send('Name is required and should have a minimum of 3 characters.');
+    res
+      .status(400)
+      .send('Name is required and should have a minimum of 3 characters.');
     return;
   }
   const crypto = {
